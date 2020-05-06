@@ -22,7 +22,7 @@ class Messenger
     public const STATUS_SUCCESS = 'success';
     public const STATUS_FAILURE = 'failure';
     /** @var  SMS */
-    protected SMS $sms;
+    protected $sms;
 
     /**
      * Messenger constructor.

@@ -25,17 +25,17 @@ use RuntimeException;
 class SMS
 {
     /** @var Config */
-    protected Config $config;
+    protected $config;
     /** @var string */
-    protected string $defaultGateway;
+    protected $defaultGateway;
     /** @var array */
-    protected array $customCreators = [];
+    protected $customCreators = [];
     /** @var array */
-    protected array $gateways = [];
+    protected $gateways = [];
     /** @var Messenger */
-    protected Messenger $messenger;
+    protected $messenger;
     /** @var array */
-    protected array $strategies = [];
+    protected $strategies = [];
 
     /**
      * Constructor.
@@ -61,7 +61,7 @@ class SMS
      */
     public function send($mobile, $message, array $gateways = [])
     {
-        $mobile = $this->formatPhoneNumber($mobile);
+        $mobile = $this->formatMobile($mobile);
         $message = $this->formatMessage($message);
         $gateways = empty($gateways) ? $message->getGateways() : $gateways;
 
@@ -239,7 +239,7 @@ class SMS
         return call_user_func($this->customCreators[$gateway], $this->config->get("gateways.{$gateway}", []));
     }
 
-    protected function formatPhoneNumber($number):MobileInterface
+    protected function formatMobile($number): MobileInterface
     {
         if ($number instanceof MobileInterface) {
             return $number;
@@ -251,7 +251,7 @@ class SMS
      * @param array|string|MessageInterface $message
      * @return MessageInterface
      */
-    protected function formatMessage($message):MessageInterface
+    protected function formatMessage($message): MessageInterface
     {
         if (!($message instanceof MessageInterface)) {
             if (!is_array($message)) {
@@ -270,7 +270,7 @@ class SMS
      * @return array
      * @throws Exception
      */
-    protected function formatGateways(array $gateways):array
+    protected function formatGateways(array $gateways): array
     {
         $formatted = [];
         foreach ($gateways as $gateway => $setting) {

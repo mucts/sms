@@ -1,0 +1,28 @@
+{
+    "name": "mucts/sms",
+    "description": "A SMS sending component to meet your multiple sending needs.",
+    "type": "library",
+    "require": {
+        "php": "^7.1",
+        "ext-json": "*",
+        "ext-simplexml": "*",
+        "guzzlehttp/guzzle": "^6.5",
+        "mucts/support": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.1",
+        "mockery/mockery": "^1.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "MuCTS\\SMS\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "herry",
+            "email": "yuandeng@aliyun.com"
+        }
+    ]
+}

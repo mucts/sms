@@ -20,6 +20,7 @@ use MuCTS\SMS\Interfaces\Message as MessageInterface;
 use MuCTS\SMS\Interfaces\Mobile as MobileInterface;
 use MuCTS\SMS\Interfaces\Strategy;
 use MuCTS\SMS\Strategies\Order;
+use MuCTS\Support\Str;
 use RuntimeException;
 
 class SMS
@@ -224,7 +225,7 @@ class SMS
         if (class_exists($name) && in_array(Gateway::class, class_implements($name))) {
             return $name;
         }
-        $name = ucfirst(str_replace(['-', '_', ''], '', $name));
+        $name = Str::studly($name);
         return __NAMESPACE__ . "\\Gateways\\{$name}";
     }
 

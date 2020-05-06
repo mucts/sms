@@ -208,7 +208,7 @@ class SMS
     protected function makeGateway(string $gateway, array $config)
     {
         if (!class_exists($gateway) || !in_array(Gateway::class, class_implements($gateway))) {
-            throw new Exception(sprintf('Class "%s" is a invalid easy-sms gateway.', $gateway));
+            throw new Exception(sprintf('Class "%s" is a invalid sms gateway.', $gateway));
         }
         return new $gateway($config);
     }
@@ -225,7 +225,7 @@ class SMS
             return $name;
         }
         $name = ucfirst(str_replace(['-', '_', ''], '', $name));
-        return __NAMESPACE__ . "\\Gateways\\{$name}Gateway";
+        return __NAMESPACE__ . "\\Gateways\\{$name}";
     }
 
     /**

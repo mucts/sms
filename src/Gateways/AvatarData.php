@@ -31,9 +31,7 @@ class AvatarData extends Gateway
 
     public function send(Message $message, Mobile $mobile, ?Config $config = null): array
     {
-        if ($config instanceof Config) {
-            $this->setConfig($config);
-        }
+        if($config) $this->setConfig($config);
         $params = [
             'mobile' => $mobile->getNumber(),
             'templateId' => $message->getTemplate($this),

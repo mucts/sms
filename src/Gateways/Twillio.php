@@ -27,7 +27,7 @@ class Twillio extends Gateway
     /** @var string 请求地址 */
     protected const ENDPOINT_URL = 'https://api.twilio.com/2010-04-01/Accounts/%s/Messages.json';
 
-    protected array $errorStatus = [
+    protected $errorStatus = [
         'failed',
         'undelivered',
     ];

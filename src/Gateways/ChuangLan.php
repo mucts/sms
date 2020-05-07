@@ -89,9 +89,7 @@ class ChuangLan extends Gateway
 
     public function send(Message $message, Mobile $mobile, ?Config $config = null): array
     {
-        if ($config instanceof Config) {
-            $this->setConfig($config);
-        }
+        if($config) $this->setConfig($config);
         $IDDCode = $mobile->getIDDCode() ?? 86;
         $params = [
             'account' => $this->getConfig()->get('account'),

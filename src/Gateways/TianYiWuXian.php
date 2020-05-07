@@ -47,7 +47,7 @@ class TianYiWuXian extends Gateway
 
     public function send(Message $message, Mobile $mobile, ?Config $config = null): array
     {
-        if ($this->config) $this->setConfig($config);
+        if ($config) $this->setConfig($config);
         $endpoint = $this->buildEndpoint();
         $params = [
             'gwid' => $this->getConfig()->get('gwid'),
@@ -56,7 +56,7 @@ class TianYiWuXian extends Gateway
             'mobile' => $mobile->getNumber(),
             'message' => $message->getContent($this),
             'username' => $this->getConfig()->get('username'),
-            'password' => strtoupper(md5($config->get('password'))),
+            'password' => strtoupper(md5($this->getConfig()->get('password'))),
         ];
         $result = $this->post($endpoint, $params);
         $result = json_decode((string)$result, true);

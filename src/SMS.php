@@ -96,7 +96,7 @@ class SMS
      * @return Strategy
      * @throws Exception
      */
-    public function strategy($strategy = null)
+    public function strategy(?string $strategy = null)
     {
         if (is_null($strategy)) {
             $strategy = $this->config->get('default.strategy', Order::class);
@@ -124,7 +124,7 @@ class SMS
      * @param Closure $callback
      * @return SMS
      */
-    public function extend($name, Closure $callback)
+    public function extend(string $name, Closure $callback): self
     {
         $this->customCreators[$name] = $callback;
 
@@ -178,7 +178,7 @@ class SMS
      * @return Gateway
      * @throws Exception
      */
-    protected function createGateway($name): Gateway
+    protected function createGateway(string $name): Gateway
     {
         if (isset($this->customCreators[$name])) {
             $gateway = $this->callCustomCreator($name);
@@ -235,7 +235,7 @@ class SMS
      * @param string $gateway
      * @return mixed
      */
-    protected function callCustomCreator($gateway)
+    protected function callCustomCreator(string $gateway)
     {
         return call_user_func($this->customCreators[$gateway], $this->config->get("gateways.{$gateway}", []));
     }

@@ -38,17 +38,13 @@ class AliYun extends Gateway
     protected const ENDPOINT_SIGNATURE_METHOD = 'HMAC-SHA1';
     /** @var string 签名算法版本。取值范围：1.0 */
     protected const ENDPOINT_SIGNATURE_VERSION = '1.0';
-    /** @var null|Config */
-    private Config $config;
 
     /**
      * @inheritDoc
      */
     public function send(Message $message, Mobile $mobile, ?Config $config = null): array
     {
-        if ($config instanceof Config) {
-            $this->setConfig($config);
-        }
+        if($config) $this->setConfig($config);
         $data = $message->getData($this);
         $signName = $data->pull('sign_name');
         $params = [

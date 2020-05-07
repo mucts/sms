@@ -17,11 +17,11 @@ abstract class Gateway implements GatewayInterface
     /** @var float 默认超时时间 */
     public const DEFAULT_TIMEOUT = 5.0;
     /** @var Config */
-    protected Config $config;
+    protected $config;
     /** @var array */
-    protected array $options;
+    protected  $options;
     /** @var float */
-    protected float $timeout;
+    protected  $timeout;
 
     /**
      * Gateway constructor.

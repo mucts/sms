@@ -35,16 +35,12 @@ class AliYunRest extends Gateway
     protected const ENDPOINT_SIGNATURE_METHOD = 'md5';
     /** @var string */
     protected const ENDPOINT_PARTNER_ID = 'EasySms';
-    /** @var Config */
-    private Config $config;
 
     public function send(Message $message, Mobile $mobile, ?Config $config = null): array
     {
+        if($config) $this->setConfig($config);
         $data = $message->getData($this);
         $signName = $data->pull('sign_name', $this->getConfig()->get('sign_name'));
-        if ($config instanceof Config) {
-            $this->setConfig($config);
-        }
         $params = [
             'extend' => '',
             'sms_type' => 'normal',

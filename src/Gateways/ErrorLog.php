@@ -22,6 +22,7 @@ class ErrorLog extends Gateway
 {
     public function send(Message $message, Mobile $mobile, ?Config $config = null): array
     {
+        if($config) $this->setConfig($config);
         if (is_array($mobile)) {
             $mobile = implode(',', $mobile);
         }
@@ -33,7 +34,7 @@ class ErrorLog extends Gateway
             $message->getTemplate($this),
             json_encode($message->getData($this))
         );
-        $file = $this->config->get('file', ini_get('error_log'));
+        $file = $this->getConfig()->get('file', ini_get('error_log'));
         $status = error_log($message, 3, $file);
         return compact('status', 'file');
     }

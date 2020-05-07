@@ -54,7 +54,7 @@ class TenCent extends Gateway
 
     public function send(Message $message, Mobile $mobile, ?Config $config = null): array
     {
-        if ($config instanceof Config) $this->setConfig($config);
+        if($config) $this->setConfig($config);
         $data = $message->getData($this);
         $signName = $data->pull('sign_name', $this->getConfig()->get('sign_name'));
         $msg = $message->getContent($this);

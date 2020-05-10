@@ -44,7 +44,7 @@ interface Message
      *
      * @return string
      */
-    public function getTemplate(?Gateway $gateway = null): string;
+    public function getTemplate(?Gateway $gateway = null): ?string;
 
     /**
      * Return the template data of message.
@@ -53,7 +53,7 @@ interface Message
      *
      * @return Config
      */
-    public function getData(?Gateway $gateway = null):Config;
+    public function getData(?Gateway $gateway = null): Config;
 
     /**
      * Return message supported gateways.

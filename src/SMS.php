@@ -52,7 +52,7 @@ class SMS
      * Send a message.
      *
      * @param MobileInterface|string|array $mobile
-     * @param MessageInterface|array $message
+     * @param MessageInterface|string|array $message
      * @param array $gateways
      * @return array
      * @throws Exception
@@ -235,12 +235,6 @@ class SMS
     protected function formatMessage($message): MessageInterface
     {
         if (!($message instanceof MessageInterface)) {
-            if (!is_array($message)) {
-                $message = [
-                    'content' => $message,
-                    'template' => $message,
-                ];
-            }
             $message = new Message($message);
         }
         return $message;

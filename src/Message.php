@@ -30,7 +30,7 @@ class Message implements MessageInterface
     protected $type;
     /** @var string */
     protected $content;
-    /** @var string */
+    /** @var string|null */
     protected $template;
     /** @var array */
     protected $data = [];
@@ -38,12 +38,15 @@ class Message implements MessageInterface
     /**
      * Message constructor.
      *
-     * @param array $attributes
+     * @param array|string $attributes
      * @param string $type
      */
-    public function __construct(array $attributes = [], $type = MessageInterface::TEXT_MESSAGE)
+    public function __construct($attributes = [], $type = self::TEXT_MESSAGE)
     {
         $this->type = $type;
+        if (is_string($attributes)) {
+            $this->setContent($attributes);
+        }
         foreach ($attributes as $property => $value) {
             if (property_exists($this, $property)) {
                 $this->$property = $value;
@@ -80,7 +83,7 @@ class Message implements MessageInterface
      *
      * @return string
      */
-    public function getTemplate(?Gateway $gateway = null): string
+    public function getTemplate(?Gateway $gateway = null): ?string
     {
         return is_callable($this->template) ? call_user_func($this->template, $gateway) : $this->template;
     }
@@ -114,7 +117,7 @@ class Message implements MessageInterface
      *
      * @return $this
      */
-    public function setTemplate($template)
+    public function setTemplate(string $template): self
     {
         $this->template = $template;
 

@@ -188,7 +188,7 @@ class SMS
      */
     protected function makeGateway(string $gateway, array $config)
     {
-        if (!class_exists($gateway) || !in_array(Gateway::class, class_implements($gateway))) {
+        if (!class_exists($gateway) || !in_array(GatewayInterface::class, class_implements($gateway))) {
             throw new Exception(sprintf('Class "%s" is a invalid sms gateway.', $gateway));
         }
         return new $gateway($config);

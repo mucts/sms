@@ -25,7 +25,7 @@ class LangMa extends Gateway
 
     protected const ENDPOINT_URL = 'http://smsapi.langma.cn/';
     protected const SUCCESS_CODE = '0';
-    protected const OP_TYPE = 1002;
+    protected const OP_TYPE = 1001;
 
     private function sign(array $params): string
     {
@@ -42,7 +42,7 @@ class LangMa extends Gateway
             "op_type" => self::OP_TYPE,
             "app_id" => $this->getConfig()->get('app_id'),
             "phone" => $mobile->getNumber(),
-            "seq_id" => $this->getConfig()->get('seq_id')
+            "sms" => $message->getContent()
         ];
         $params['sign'] = $this->sign($params);
         $result = $this->post(self::ENDPOINT_URL, $params);

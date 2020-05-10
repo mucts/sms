@@ -267,12 +267,13 @@ class SMS
     }
 
     /**
-     * @param array $gateways
+     * @param array|string $gateways
      * @return array
      * @throws Exception
      */
-    protected function formatGateways(array $gateways): array
+    protected function formatGateways($gateways): array
     {
+        $gateways = is_string($gateways) ? explode(',', $gateways) : $gateways;
         $formatted = [];
         foreach ($gateways as $gateway => $setting) {
             if (is_int($gateway) && is_string($setting)) {

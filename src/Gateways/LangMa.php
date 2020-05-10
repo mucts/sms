@@ -30,7 +30,7 @@ class LangMa extends Gateway
     private function sign(array $params): string
     {
         ksort($params);
-        $params['app_key'] = $this->getConfig()->get('key');
+        $params['app_key'] = $this->getConfig()->get('app_key');
         $string = http_build_query($params);
         return md5($string);
     }
@@ -45,7 +45,8 @@ class LangMa extends Gateway
             "sms" => $message->getContent()
         ];
         $params['sign'] = $this->sign($params);
-        $result = $this->post(self::ENDPOINT_URL, $params);
+        $result = $this->post(self::ENDPOINT_URL, ['json' => json_encode($params)]);
+        $result = is_string($result) ? json_decode(trim($result, chr(239) . chr(187) . chr(191)), true) : $result;
         if (self::SUCCESS_CODE != $result['code']) {
             throw new Exception($result['msg'], $result['code'], $result);
         }

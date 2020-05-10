@@ -16,19 +16,17 @@ use Closure;
 use Exception;
 use MuCTS\SMS\Config\Config;
 use MuCTS\SMS\Gateways\Gateway;
+use MuCTS\SMS\Interfaces\Gateway as GatewayInterface;
 use MuCTS\SMS\Interfaces\Message as MessageInterface;
 use MuCTS\SMS\Interfaces\Mobile as MobileInterface;
 use MuCTS\SMS\Interfaces\Strategy;
 use MuCTS\SMS\Strategies\Order;
 use MuCTS\Support\Str;
-use RuntimeException;
 
 class SMS
 {
     /** @var Config */
     protected $config;
-    /** @var string */
-    protected $defaultGateway;
     /** @var array */
     protected $customCreators = [];
     /** @var array */
@@ -45,10 +43,9 @@ class SMS
      */
     public function __construct(array $config)
     {
+        $gateways = isset($config['default']['gateways']) ? $config['default']['gateways'] : null;
+        $config['default']['gateways'] = is_string($gateways) ? explode(',', $gateways) : $gateways;
         $this->config = new Config($config);
-        if (!empty($config['default'])) {
-            $this->setDefaultGateway($config['default']);
-        }
     }
 
     /**
@@ -139,28 +136,11 @@ class SMS
     /**
      * Get default gateway name.
      *
-     * @return string
-     * @throws RuntimeException if no default gateway configured
+     * @return string|null
      */
-    public function getDefaultGateway(): string
+    public function getDefaultGateway(): ?string
     {
-        if (empty($this->defaultGateway)) {
-            throw new RuntimeException('No default gateway configured.');
-        }
-
-        return $this->defaultGateway;
-    }
-
-    /**
-     * Set default gateway name.
-     *
-     * @param string $name
-     * @return $this
-     */
-    public function setDefaultGateway(string $name): self
-    {
-        $this->defaultGateway = $name;
-        return $this;
+        return $this->config->get('default.gateways.0');
     }
 
     /**
@@ -222,7 +202,7 @@ class SMS
      */
     protected function formatGatewayClassName(string $name): string
     {
-        if (class_exists($name) && in_array(Gateway::class, class_implements($name))) {
+        if (class_exists($name) && in_array(GatewayInterface::class, class_implements($name))) {
             return $name;
         }
         $name = Str::studly($name);

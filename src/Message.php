@@ -46,10 +46,11 @@ class Message implements MessageInterface
         $this->type = $type;
         if (is_string($attributes)) {
             $this->setContent($attributes);
-        }
-        foreach ($attributes as $property => $value) {
-            if (property_exists($this, $property)) {
-                $this->$property = $value;
+        } else {
+            foreach ($attributes as $property => $value) {
+                if (property_exists($this, $property)) {
+                    $this->$property = $value;
+                }
             }
         }
     }

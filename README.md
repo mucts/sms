@@ -1,6 +1,12 @@
 # SMS
 > 一款满足你的多种发送需求的短信发送组件
 
+[![Latest Stable Version](https://poser.pugx.org/mucts/sms/v/stable.svg)](https://packagist.org/packages/mucts/sms) 
+[![Total Downloads](https://poser.pugx.org/mucts/sms/downloads.svg)](https://packagist.org/packages/mucts/sms) 
+[![Latest Unstable Version](https://poser.pugx.org/mucts/sms/v/unstable.svg)](https://packagist.org/packages/mucts/sms) 
+[![License](https://poser.pugx.org/mucts/sms/license.svg)](https://packagist.org/packages/mucts/sms)
+
+
 
 ## 特点
 
